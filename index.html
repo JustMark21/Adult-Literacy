@@ -13,6 +13,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -20,6 +21,11 @@
             background-color: #fff7ed; /* Very light orange background */
         }
         
+        /* Chinese font fallback */
+        body.lang-zh {
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+        }
+
         /* Custom scrollbar for textareas */
         textarea::-webkit-scrollbar {
             width: 8px;
@@ -45,19 +51,39 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative">
+
+    <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 z-10">
+        <select onchange="changeLanguage(this.value)" class="bg-white border border-orange-200 text-orange-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 shadow-sm outline-none cursor-pointer">
+            <option value="en">🇺🇸 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ru">🇷🇺 Русский</option>
+        </select>
+    </div>
 
     <!-- Instructions Card -->
-    <div class="bg-orange-50 border border-orange-200 w-full max-w-lg rounded-xl p-4 mb-4 shadow-sm fade-in">
+    <div class="bg-orange-50 border border-orange-200 w-full max-w-lg rounded-xl p-4 mb-4 shadow-sm fade-in mt-12 sm:mt-0">
         <h3 class="font-semibold text-orange-800 flex items-center gap-2 mb-2">
-            <i class="ph ph-info text-xl"></i> How to use this form:
+            <i class="ph ph-info text-xl"></i> <span data-i18n="instr_title">How to use this form:</span>
         </h3>
         <ol class="text-sm text-orange-900 space-y-1 ml-1">
-            <li class="flex gap-2"><span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">1</span> Fill in your name, class, and what you need help with.</li>
-            <li class="flex gap-2"><span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">2</span> Click the orange <b>"Open Email App"</b> button.</li>
-            <li class="flex gap-2"><span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">3</span> Send the email that pops up.</li>
+            <li class="flex gap-2">
+                <span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">1</span> 
+                <span data-i18n="instr_1">Fill in your name, class, and what you need help with.</span>
+            </li>
+            <li class="flex gap-2">
+                <span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">2</span> 
+                <span data-i18n="instr_2">Click the orange <b>"Open Email App"</b> button.</span>
+            </li>
+            <li class="flex gap-2">
+                <span class="font-bold bg-orange-200 text-orange-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">3</span> 
+                <span data-i18n="instr_3">Send the email that pops up.</span>
+            </li>
             <li class="mt-2 pt-2 border-t border-orange-200 text-xs text-slate-600 leading-relaxed">
-                <span class="font-bold text-orange-600">Note:</span> If the app doesn't open, click "Copy Info" and send manually to: 
+                <span class="font-bold text-orange-600" data-i18n="note_label">Note:</span> 
+                <span data-i18n="note_text">If the app doesn't open, click "Copy Info" and send manually to:</span>
                 <span class="inline-block font-semibold bg-white px-1.5 py-0.5 rounded border border-orange-200 text-orange-700 select-all mt-1 sm:mt-0">mmantilla@universitysettlement.org</span>
             </li>
         </ol>
@@ -69,8 +95,8 @@
         <!-- Header -->
         <div class="bg-orange-600 p-6 text-center">
             <i class="ph ph-chat-heart text-4xl text-white mb-2"></i>
-            <h1 class="text-2xl font-semibold text-white">Counseling Request</h1>
-            <p class="text-orange-100 text-sm mt-1">Adult Literacy Program</p>
+            <h1 class="text-2xl font-semibold text-white" data-i18n="form_title">Counseling Request</h1>
+            <p class="text-orange-100 text-sm mt-1" data-i18n="program_name">Adult Literacy Program</p>
         </div>
 
         <!-- Form Content -->
@@ -78,49 +104,17 @@
             
             <!-- Full Name -->
             <div>
-                <label for="fullName" class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                <label for="fullName" class="block text-sm font-medium text-slate-700 mb-1" data-i18n="label_name">Full Name</label>
                 <input type="text" id="fullName" placeholder="Enter your full name" 
                     class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all placeholder-slate-400">
             </div>
 
             <!-- Class Selection -->
             <div>
-                <label for="studentClass" class="block text-sm font-medium text-slate-700 mb-1">Select Your Class</label>
+                <label for="studentClass" class="block text-sm font-medium text-slate-700 mb-1" data-i18n="label_class">Select Your Class</label>
                 <div class="relative">
                     <select id="studentClass" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all appearance-none bg-white text-slate-700">
-                        <option value="" disabled selected>Choose your class code...</option>
-                        
-                        <optgroup label="Daytime (9am - 11am)">
-                            <option value="0A (9-11am)">0A</option>
-                            <option value="1A (9-11am)">1A</option>
-                            <option value="2A (9-11am)">2A</option>
-                            <option value="3A (9-11am)">3A</option>
-                            <option value="CCR-A (9-11am)">CCR-A</option>
-                        </optgroup>
-
-                        <optgroup label="Daytime (11am - 1pm)">
-                            <option value="0P (11am-1pm)">0P</option>
-                            <option value="1P (11am-1pm)">1P</option>
-                            <option value="2P (11am-1pm)">2P</option>
-                            <option value="3P (11am-1pm)">3P</option>
-                            <option value="CCR-P (11am-1pm)">CCR-P</option>
-                        </optgroup>
-
-                        <optgroup label="Evening (6:30pm - 9pm)">
-                            <option value="E0 (Evening)">E0</option>
-                            <option value="E1 (Evening)">E1</option>
-                            <option value="E101 (Evening)">E101</option>
-                            <option value="E2 (Evening)">E2</option>
-                            <option value="E3 (Evening)">E3</option>
-                            <option value="E4 (Evening)">E4</option>
-                        </optgroup>
-
-                        <optgroup label="Weekend (9:30am - 12:30pm)">
-                            <option value="W1 (Weekend)">W1</option>
-                            <option value="W101 (Weekend)">W101</option>
-                            <option value="W2 (Weekend)">W2</option>
-                            <option value="W3 (Weekend)">W3</option>
-                        </optgroup>
+                        <!-- Options populated by JS -->
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
                         <i class="ph ph-caret-down"></i>
@@ -130,17 +124,10 @@
 
             <!-- Counseling Type -->
             <div>
-                <label for="topic" class="block text-sm font-medium text-slate-700 mb-1">What would you like to discuss?</label>
+                <label for="topic" class="block text-sm font-medium text-slate-700 mb-1" data-i18n="label_topic">What would you like to discuss?</label>
                 <div class="relative">
                     <select id="topic" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all appearance-none bg-white text-slate-700">
-                        <option value="" disabled selected>Select a topic...</option>
-                        <option value="Reading/Writing Progress">Reading / Writing Progress</option>
-                        <option value="HSE/GED Preparation">HSE / GED Preparation</option>
-                        <option value="Citizenship Test Prep">Citizenship Test Prep</option>
-                        <option value="Workforce/Job Skills">Workforce / Job Skills</option>
-                        <option value="Digital Literacy">Computer / Digital Literacy</option>
-                        <option value="Attendance/Personal Issues">Attendance / Personal Issues</option>
-                        <option value="Other">Other</option>
+                         <!-- Options populated by JS -->
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
                         <i class="ph ph-caret-down"></i>
@@ -150,7 +137,7 @@
 
             <!-- Availability -->
             <div>
-                <label for="availability" class="block text-sm font-medium text-slate-700 mb-1">
+                <label for="availability" class="block text-sm font-medium text-slate-700 mb-1" data-i18n="label_avail">
                     Availability (Next 2 Weeks)
                 </label>
                 <textarea id="availability" rows="2" placeholder="e.g. Before my class on Tuesdays, or Fridays after 1pm..." 
@@ -160,7 +147,7 @@
             <!-- Specific Details -->
             <div>
                 <label for="notes" class="block text-sm font-medium text-slate-700 mb-1">
-                    Additional Notes <span class="text-slate-400 font-normal text-xs">(Optional)</span>
+                    <span data-i18n="label_notes">Additional Notes</span> <span class="text-slate-400 font-normal text-xs" data-i18n="label_optional">(Optional)</span>
                 </label>
                 <textarea id="notes" rows="3" placeholder="Any specific details you want to share beforehand..." 
                     class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all placeholder-slate-400 resize-none"></textarea>
@@ -178,13 +165,13 @@
                 <!-- Send Email Button -->
                 <button onclick="sendEmail()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-4 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2 group">
                     <i class="ph ph-paper-plane-right text-xl"></i>
-                    <span>Open Email App</span>
+                    <span data-i18n="btn_email">Open Email App</span>
                 </button>
 
                 <!-- Copy Clipboard Button -->
                 <button id="copyBtn" onclick="copyToClipboard()" class="w-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
                     <i id="copyIcon" class="ph ph-copy text-xl"></i>
-                    <span id="copyText">Copy Info (if email doesn't open)</span>
+                    <span id="copyText" data-i18n="btn_copy">Copy Info (if email doesn't open)</span>
                 </button>
             </div>
 
@@ -192,10 +179,10 @@
             <div class="text-center pt-4 border-t border-slate-100">
                 <p class="text-xs text-slate-500 leading-relaxed">
                     <i class="ph ph-info inline-block mr-1 align-middle text-orange-600"></i>
-                    We will reply to your email to confirm the appointment.
+                    <span data-i18n="footer_info">We will reply to your email to confirm the appointment.</span>
                 </p>
                 <p class="text-xs text-slate-400 mt-2">
-                    Recipient: mmantilla@universitysettlement.org
+                    <span data-i18n="recipient_label">Recipient:</span> mmantilla@universitysettlement.org
                 </p>
             </div>
 
@@ -204,21 +191,298 @@
 
     <!-- Disclaimer Footer -->
     <footer class="mt-4 mb-8 text-center px-4 max-w-lg fade-in">
-        <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1">Volunteer Project</p>
-        <p class="text-xs text-slate-500 leading-relaxed">
+        <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-1" data-i18n="footer_vol_title">Volunteer Project</p>
+        <p class="text-xs text-slate-500 leading-relaxed" data-i18n="footer_vol_text">
             This web form was created voluntarily as a free tool for student convenience to help format email requests. 
-            It is not an official system of the Adult Literacy Program administration.
+            It is not an official system of the University Settlement Adult Literacy Program.
         </p>
     </footer>
 
     <!-- Toast Notification (Hidden by default) -->
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-2 z-50">
         <i class="ph ph-check-circle text-green-400 text-xl"></i>
-        <span>Copied to clipboard!</span>
+        <span data-i18n="toast_copied">Copied to clipboard!</span>
     </div>
 
     <script>
         const RECIPIENT_EMAIL = "mmantilla@universitysettlement.org";
+
+        // --- Internationalization (i18n) Data ---
+        const translations = {
+            en: {
+                instr_title: "How to use this form:",
+                instr_1: "Fill in your name, class, and what you need help with (please use English).",
+                instr_2: "Click the orange <b>\"Open Email App\"</b> button.",
+                instr_3: "Send the email that pops up.",
+                note_label: "Note:",
+                note_text: "If the app doesn't open, click \"Copy Info\" and send manually to:",
+                form_title: "Counseling Request",
+                program_name: "Adult Literacy Program",
+                label_name: "Full Name",
+                ph_name: "Enter your full name (in English)",
+                label_class: "Select Your Class",
+                ph_class: "Choose your class code...",
+                label_topic: "What would you like to discuss?",
+                ph_topic: "Select a topic...",
+                label_avail: "Availability (Next 2 Weeks)",
+                ph_avail: "e.g. Before my class on Tuesdays... (please write in English)",
+                label_notes: "Additional Notes",
+                label_optional: "(Optional)",
+                ph_notes: "Any specific details... (please write in English)",
+                btn_email: "Open Email App",
+                btn_copy: "Copy Info (if email doesn't open)",
+                footer_info: "We will reply to your email to confirm the appointment.",
+                recipient_label: "Recipient:",
+                footer_vol_title: "Volunteer Project",
+                footer_vol_text: "This web form was created voluntarily as a free tool for student convenience. It is not an official system of the University Settlement Adult Literacy Program.",
+                toast_copied: "Copied to clipboard!",
+                err_fill: "Please fill in all required fields.",
+                err_copy: "Please fill in the form before copying.",
+                
+                // Dropdown Labels
+                opt_day_am: "Daytime (9am - 11am)",
+                opt_day_pm: "Daytime (11am - 1pm)",
+                opt_evening: "Evening (6:30pm - 9pm)",
+                opt_weekend: "Weekend (9:30am - 12:30pm)",
+                
+                // Topics
+                topic_rw: "Reading / Writing Progress",
+                topic_hse: "HSE / GED Preparation",
+                topic_cit: "Citizenship Test Prep",
+                topic_job: "Workforce / Job Skills",
+                topic_dig: "Computer / Digital Literacy",
+                topic_att: "Attendance / Personal Issues",
+                topic_other: "Other"
+            },
+            es: {
+                instr_title: "Cómo usar este formulario:",
+                instr_1: "Complete su nombre, clase y en qué necesita ayuda (por favor escriba en Inglés).",
+                instr_2: "Haga clic en el botón naranja <b>\"Abrir Aplicación de Email\"</b>.",
+                instr_3: "Envíe el correo electrónico que aparece.",
+                note_label: "Nota:",
+                note_text: "Si la aplicación no se abre, haga clic en \"Copiar Info\" y envíelo manualmente a:",
+                form_title: "Solicitud de Consejería",
+                program_name: "Programa de Alfabetización para Adultos",
+                label_name: "Nombre Completo",
+                ph_name: "Ingrese su nombre completo (en Inglés)",
+                label_class: "Seleccione su Clase",
+                ph_class: "Elija el código de su clase...",
+                label_topic: "¿Qué le gustaría discutir?",
+                ph_topic: "Seleccione un tema...",
+                label_avail: "Disponibilidad (Próximas 2 Semanas)",
+                ph_avail: "ej. Tuesdays after 1pm... (escriba en Inglés por favor)",
+                label_notes: "Notas Adicionales",
+                label_optional: "(Opcional)",
+                ph_notes: "Detalles específicos... (escriba en Inglés por favor)",
+                btn_email: "Abrir Aplicación de Email",
+                btn_copy: "Copiar Info (si no abre el email)",
+                footer_info: "Responderemos a su correo para confirmar la cita.",
+                recipient_label: "Destinatario:",
+                footer_vol_title: "Proyecto Voluntario",
+                footer_vol_text: "Este formulario fue creado voluntariamente para la comodidad de los estudiantes. No es un sistema oficial del Programa de Alfabetización de Adultos de University Settlement.",
+                toast_copied: "¡Copiado al portapapeles!",
+                err_fill: "Por favor complete todos los campos obligatorios.",
+                err_copy: "Por favor complete el formulario antes de copiar.",
+
+                opt_day_am: "Día (9am - 11am)",
+                opt_day_pm: "Día (11am - 1pm)",
+                opt_evening: "Noche (6:30pm - 9pm)",
+                opt_weekend: "Fin de Semana (9:30am - 12:30pm)",
+
+                topic_rw: "Progreso de Lectura / Escritura",
+                topic_hse: "Preparación para HSE / GED",
+                topic_cit: "Prep. Examen de Ciudadanía",
+                topic_job: "Habilidades Laborales",
+                topic_dig: "Alfabetización Digital / Computación",
+                topic_att: "Asistencia / Asuntos Personales",
+                topic_other: "Otro"
+            },
+            zh: {
+                instr_title: "如何使用此表格：",
+                instr_1: "填写您的姓名、班级及需求 (请用英语填写)。",
+                instr_2: "点击橙色的<b>“打开电子邮件应用”</b>按钮。",
+                instr_3: "发送弹出的电子邮件。",
+                note_label: "注意：",
+                note_text: "如果应用未打开，请点击“复制信息”并手动发送至：",
+                form_title: "咨询请求",
+                program_name: "成人扫盲计划",
+                label_name: "全名",
+                ph_name: "输入您的全名 (请用英语)",
+                label_class: "选择您的班级",
+                ph_class: "选择您的班级代码...",
+                label_topic: "您想讨论什么？",
+                ph_topic: "选择一个主题...",
+                label_avail: "空闲时间（未来2周）",
+                ph_avail: "例如：Tuesdays after 1pm... (请用英语填写)",
+                label_notes: "附加说明",
+                label_optional: "（可选）",
+                ph_notes: "任何具体细节... (请用英语填写)",
+                btn_email: "打开电子邮件应用",
+                btn_copy: "复制信息（如果邮件未打开）",
+                footer_info: "我们将回复您的邮件以确认预约。",
+                recipient_label: "收件人：",
+                footer_vol_title: "志愿者项目",
+                footer_vol_text: "此网络表格是自愿创建的免费工具，旨在方便学生。它不是 University Settlement 成人扫盲计划的官方系统。",
+                toast_copied: "已复制到剪贴板！",
+                err_fill: "请填写所有必填字段。",
+                err_copy: "请在复制前填写表格。",
+
+                opt_day_am: "白天 (上午 9点 - 11点)",
+                opt_day_pm: "白天 (上午 11点 - 下午 1点)",
+                opt_evening: "晚间 (下午 6:30 - 9点)",
+                opt_weekend: "周末 (上午 9:30 - 12:30)",
+
+                topic_rw: "阅读/写作进度",
+                topic_hse: "HSE / GED 准备",
+                topic_cit: "公民入籍考试准备",
+                topic_job: "劳动力/工作技能",
+                topic_dig: "计算机/数字素养",
+                topic_att: "出勤/个人问题",
+                topic_other: "其他"
+            },
+            ru: {
+                instr_title: "Как использовать эту форму:",
+                instr_1: "Заполните имя, класс и тему помощи (пожалуйста, пишите по-английски).",
+                instr_2: "Нажмите оранжевую кнопку <b>«Открыть Email»</b>.",
+                instr_3: "Отправьте созданное письмо.",
+                note_label: "Прим.:",
+                note_text: "Если приложение не открывается, нажмите «Копировать Инфо» и отправьте вручную на:",
+                form_title: "Запрос на Консультацию",
+                program_name: "Программа Грамотности для Взрослых",
+                label_name: "Полное Имя",
+                ph_name: "Введите ваше полное имя (по-английски)",
+                label_class: "Выберите Ваш Класс",
+                ph_class: "Выберите код класса...",
+                label_topic: "Что вы хотели бы обсудить?",
+                ph_topic: "Выберите тему...",
+                label_avail: "Доступность (След. 2 недели)",
+                ph_avail: "напр. Tuesdays after 1pm... (пишите по-английски)",
+                label_notes: "Дополнительные Заметки",
+                label_optional: "(Необязательно)",
+                ph_notes: "Любые детали... (пишите по-английски)",
+                btn_email: "Открыть Email Приложение",
+                btn_copy: "Копировать Инфо (если email не открылся)",
+                footer_info: "Мы ответим на ваше письмо, чтобы подтвердить встречу.",
+                recipient_label: "Получатель:",
+                footer_vol_title: "Волонтерский Проект",
+                footer_vol_text: "Эта веб-форма была создана добровольно для удобства студентов. Это не официальная система University Settlement Adult Literacy Program.",
+                toast_copied: "Скопировано в буфер обмена!",
+                err_fill: "Пожалуйста, заполните все обязательные поля.",
+                err_copy: "Пожалуйста, заполните форму перед копированием.",
+
+                opt_day_am: "Дневные (9:00 - 11:00)",
+                opt_day_pm: "Дневные (11:00 - 13:00)",
+                opt_evening: "Вечерние (18:30 - 21:00)",
+                opt_weekend: "Выходные (9:30 - 12:30)",
+
+                topic_rw: "Прогресс в чтении / письме",
+                topic_hse: "Подготовка к HSE / GED",
+                topic_cit: "Подготовка к тесту на гражданство",
+                topic_job: "Трудовые навыки",
+                topic_dig: "Компьютерная грамотность",
+                topic_att: "Посещаемость / Личные вопросы",
+                topic_other: "Другое"
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Initialize form on load
+        window.onload = function() {
+            renderClassOptions('en');
+            renderTopicOptions('en');
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // 1. Update font for Chinese support
+            if (lang === 'zh') document.body.classList.add('lang-zh');
+            else document.body.classList.remove('lang-zh');
+
+            // 2. Update simple text elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    // Use innerHTML for instructions that contain <b> tags
+                    if (key.startsWith('instr_') || key === 'note_text') {
+                        el.innerHTML = t[key];
+                    } else {
+                        el.innerText = t[key];
+                    }
+                }
+            });
+
+            // 3. Update Placeholders
+            document.getElementById('fullName').placeholder = t.ph_name;
+            document.getElementById('availability').placeholder = t.ph_avail;
+            document.getElementById('notes').placeholder = t.ph_notes;
+
+            // 4. Update Dropdown Options (preserve selection)
+            const classSelect = document.getElementById('studentClass');
+            const topicSelect = document.getElementById('topic');
+            const currentClassVal = classSelect.value;
+            const currentTopicVal = topicSelect.value;
+
+            renderClassOptions(lang);
+            renderTopicOptions(lang);
+
+            classSelect.value = currentClassVal;
+            topicSelect.value = currentTopicVal;
+        }
+
+        // Render functions keep the VALUES in English (for the admin) but translate the DISPLAY text
+        function renderClassOptions(lang) {
+            const t = translations[lang];
+            const select = document.getElementById('studentClass');
+            select.innerHTML = `
+                <option value="" disabled selected>${t.ph_class}</option>
+                <optgroup label="${t.opt_day_am}">
+                    <option value="0A (9-11am)">0A</option>
+                    <option value="1A (9-11am)">1A</option>
+                    <option value="2A (9-11am)">2A</option>
+                    <option value="3A (9-11am)">3A</option>
+                    <option value="CCR-A (9-11am)">CCR-A</option>
+                </optgroup>
+                <optgroup label="${t.opt_day_pm}">
+                    <option value="0P (11am-1pm)">0P</option>
+                    <option value="1P (11am-1pm)">1P</option>
+                    <option value="2P (11am-1pm)">2P</option>
+                    <option value="3P (11am-1pm)">3P</option>
+                    <option value="CCR-P (11am-1pm)">CCR-P</option>
+                </optgroup>
+                <optgroup label="${t.opt_evening}">
+                    <option value="E0 (Evening)">E0</option>
+                    <option value="E1 (Evening)">E1</option>
+                    <option value="E101 (Evening)">E101</option>
+                    <option value="E2 (Evening)">E2</option>
+                    <option value="E3 (Evening)">E3</option>
+                    <option value="E4 (Evening)">E4</option>
+                </optgroup>
+                <optgroup label="${t.opt_weekend}">
+                    <option value="W1 (Weekend)">W1</option>
+                    <option value="W101 (Weekend)">W101</option>
+                    <option value="W2 (Weekend)">W2</option>
+                    <option value="W3 (Weekend)">W3</option>
+                </optgroup>
+            `;
+        }
+
+        function renderTopicOptions(lang) {
+            const t = translations[lang];
+            const select = document.getElementById('topic');
+            select.innerHTML = `
+                <option value="" disabled selected>${t.ph_topic}</option>
+                <option value="Reading/Writing Progress">${t.topic_rw}</option>
+                <option value="HSE/GED Preparation">${t.topic_hse}</option>
+                <option value="Citizenship Test Prep">${t.topic_cit}</option>
+                <option value="Workforce/Job Skills">${t.topic_job}</option>
+                <option value="Digital Literacy">${t.topic_dig}</option>
+                <option value="Attendance/Personal Issues">${t.topic_att}</option>
+                <option value="Other">${t.topic_other}</option>
+            `;
+        }
 
         function getFormData() {
             const fullName = document.getElementById('fullName').value.trim();
@@ -235,6 +499,7 @@
         }
 
         function formatMessageBody(data) {
+            // We keep the email body labels in English for the Admin's convenience
             return `COUNSELING REQUEST (Adult Literacy Program)
 -----------------------------
 Student Name: ${data.fullName}
@@ -249,13 +514,13 @@ ${data.notes ? data.notes : "None provided"}
 -----------------------------`;
         }
 
-        function showError(message) {
+        function showError(messageKey) {
             const errorDiv = document.getElementById('errorMessage');
             const errorText = document.getElementById('errorText');
-            errorText.innerText = message;
+            // Translate the error message
+            errorText.innerText = translations[currentLang][messageKey] || translations['en'][messageKey];
             errorDiv.classList.remove('hidden');
             
-            // Shake animation effect
             errorDiv.classList.add('animate-pulse');
             setTimeout(() => errorDiv.classList.remove('animate-pulse'), 500);
         }
@@ -269,17 +534,13 @@ ${data.notes ? data.notes : "None provided"}
             const data = getFormData();
             
             if (!data) {
-                showError("Please fill in Name, Class, Topic, and Availability.");
+                showError('err_fill');
                 return;
             }
 
             const subject = `Counseling Request: ${data.fullName}`;
             const body = formatMessageBody(data);
-            
-            // Encode components for URL
             const mailtoLink = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open mail client
             window.location.href = mailtoLink;
         }
 
@@ -288,24 +549,19 @@ ${data.notes ? data.notes : "None provided"}
             const data = getFormData();
 
             if (!data) {
-                showError("Please fill in the form before copying.");
+                showError('err_copy');
                 return;
             }
 
             const subject = `Counseling Request: ${data.fullName}`;
             const body = formatMessageBody(data);
-            
-            // Create full text block including recipient and subject for manual sending
             const fullTextToCopy = `To: ${RECIPIENT_EMAIL}
 Subject: ${subject}
 
 ${body}`;
 
-            // Robust copy method
             const textArea = document.createElement("textarea");
             textArea.value = fullTextToCopy;
-            
-            // Ensure textarea is not visible but part of DOM
             textArea.style.position = "fixed";
             textArea.style.left = "-9999px";
             textArea.style.top = "0";
@@ -320,16 +576,15 @@ ${body}`;
                     showToast();
                     updateCopyButtonState();
                 } else {
-                    showError("Unable to copy to clipboard automatically.");
+                    alert("Unable to copy automatically. Please try again.");
                 }
             } catch (err) {
-                showError("Browser denied copy permission.");
+                alert("Browser denied copy permission.");
             }
             
             document.body.removeChild(textArea);
         }
 
-        // Temporary visual change for the copy button
         function updateCopyButtonState() {
             const btn = document.getElementById('copyBtn');
             const icon = document.getElementById('copyIcon');
@@ -339,21 +594,28 @@ ${body}`;
             btn.classList.add('bg-green-50', 'text-green-700', 'border-green-200');
             icon.classList.remove('ph-copy');
             icon.classList.add('ph-check');
-            text.innerText = "Info Copied!";
+            
+            // Translate "Info Copied!"? Or keep simple symbol? Let's translate.
+            // For simplicity in JS logic, let's just stick to the toast for the text feedback
+            // and just change icon here, or hardcode a simple "OK!" 
+            // Actually, we can just grab the toast text which is translated.
+            text.innerText = translations[currentLang].toast_copied;
 
             setTimeout(() => {
                 btn.classList.add('bg-white', 'text-slate-700');
                 btn.classList.remove('bg-green-50', 'text-green-700', 'border-green-200');
                 icon.classList.add('ph-copy');
                 icon.classList.remove('ph-check');
-                text.innerText = "Copy Info (if email doesn't open)";
+                text.innerText = translations[currentLang].btn_copy;
             }, 3000);
         }
 
         function showToast() {
             const toast = document.getElementById('toast');
-            toast.classList.remove('opacity-0');
+            // Update toast text before showing
+            toast.querySelector('span').innerText = translations[currentLang].toast_copied;
             
+            toast.classList.remove('opacity-0');
             setTimeout(() => {
                 toast.classList.add('opacity-0');
             }, 3000);
