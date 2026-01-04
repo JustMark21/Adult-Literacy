@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adult Literacy Counseling Request</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdfa; /* Very light teal background */
+        }
+        
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
+
+    <!-- Instructions Card -->
+    <div class="bg-teal-50 border border-teal-200 w-full max-w-lg rounded-xl p-4 mb-4 shadow-sm fade-in">
+        <h3 class="font-semibold text-teal-800 flex items-center gap-2 mb-2">
+            <i class="ph ph-info text-xl"></i> How to use this form:
+        </h3>
+        <ol class="text-sm text-teal-900 space-y-1 ml-1">
+            <li class="flex gap-2"><span class="font-bold bg-teal-200 text-teal-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">1</span> Fill in your name, class, and what you need help with.</li>
+            <li class="flex gap-2"><span class="font-bold bg-teal-200 text-teal-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">2</span> Click the green <b>"Open Email App"</b> button.</li>
+            <li class="flex gap-2"><span class="font-bold bg-teal-200 text-teal-800 rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0">3</span> Send the email that pops up.</li>
+            <li class="flex gap-2 mt-2 pt-2 border-t border-teal-200 italic"><span class="text-teal-600">Note:</span> If the email app doesn't open, click "Copy Info" and paste it into your email manually.</li>
+        </ol>
+    </div>
+
+    <!-- Main Card Container -->
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden fade-in border border-slate-100">
+        
+        <!-- Header -->
+        <div class="bg-teal-600 p-6 text-center">
+            <i class="ph ph-chat-heart text-4xl text-white mb-2"></i>
+            <h1 class="text-2xl font-semibold text-white">Counseling Request</h1>
+            <p class="text-teal-100 text-sm mt-1">Adult Literacy Program</p>
+        </div>
+
+        <!-- Form Content -->
+        <div class="p-6 sm:p-8 space-y-5">
+            
+            <!-- Full Name -->
+            <div>
+                <label for="fullName" class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" 
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all placeholder-slate-400">
+            </div>
+
+            <!-- Class Selection -->
+            <div>
+                <label for="studentClass" class="block text-sm font-medium text-slate-700 mb-1">Select Your Class</label>
+                <div class="relative">
+                    <select id="studentClass" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all appearance-none bg-white text-slate-700">
+                        <option value="" disabled selected>Choose your class code...</option>
+                        
+                        <optgroup label="Daytime (9am - 11am)">
+                            <option value="0A (9-11am)">0A</option>
+                            <option value="1A (9-11am)">1A</option>
+                            <option value="2A (9-11am)">2A</option>
+                            <option value="3A (9-11am)">3A</option>
+                            <option value="CCR-A (9-11am)">CCR-A</option>
+                        </optgroup>
+
+                        <optgroup label="Daytime (11am - 1pm)">
+                            <option value="0P (11am-1pm)">0P</option>
+                            <option value="1P (11am-1pm)">1P</option>
+                            <option value="2P (11am-1pm)">2P</option>
+                            <option value="3P (11am-1pm)">3P</option>
+                            <option value="CCR-P (11am-1pm)">CCR-P</option>
+                        </optgroup>
+
+                        <optgroup label="Evening (6:30pm - 9pm)">
+                            <option value="E0 (Evening)">E0</option>
+                            <option value="E1 (Evening)">E1</option>
+                            <option value="E101 (Evening)">E101</option>
+                            <option value="E2 (Evening)">E2</option>
+                            <option value="E3 (Evening)">E3</option>
+                            <option value="E4 (Evening)">E4</option>
+                        </optgroup>
+
+                        <optgroup label="Weekend (9:30am - 12:30pm)">
+                            <option value="W1 (Weekend)">W1</option>
+                            <option value="W101 (Weekend)">W101</option>
+                            <option value="W2 (Weekend)">W2</option>
+                            <option value="W3 (Weekend)">W3</option>
+                        </optgroup>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Counseling Type -->
+            <div>
+                <label for="topic" class="block text-sm font-medium text-slate-700 mb-1">What would you like to discuss?</label>
+                <div class="relative">
+                    <select id="topic" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all appearance-none bg-white text-slate-700">
+                        <option value="" disabled selected>Select a topic...</option>
+                        <option value="Reading/Writing Progress">Reading / Writing Progress</option>
+                        <option value="HSE/GED Preparation">HSE / GED Preparation</option>
+                        <option value="Citizenship Test Prep">Citizenship Test Prep</option>
+                        <option value="Workforce/Job Skills">Workforce / Job Skills</option>
+                        <option value="Digital Literacy">Computer / Digital Literacy</option>
+                        <option value="Attendance/Personal Issues">Attendance / Personal Issues</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Availability -->
+            <div>
+                <label for="availability" class="block text-sm font-medium text-slate-700 mb-1">
+                    Availability (Next 2 Weeks)
+                </label>
+                <textarea id="availability" rows="2" placeholder="e.g. Before my class on Tuesdays, or Fridays after 1pm..." 
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all placeholder-slate-400 resize-none"></textarea>
+            </div>
+
+            <!-- Specific Details -->
+            <div>
+                <label for="notes" class="block text-sm font-medium text-slate-700 mb-1">
+                    Additional Notes <span class="text-slate-400 font-normal text-xs">(Optional)</span>
+                </label>
+                <textarea id="notes" rows="3" placeholder="Any specific details you want to share beforehand..." 
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all placeholder-slate-400 resize-none"></textarea>
+            </div>
+
+            <!-- Error Message Container -->
+            <div id="errorMessage" class="hidden bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100 flex items-center gap-2">
+                <i class="ph ph-warning-circle text-lg"></i>
+                <span id="errorText">Please fill in all required fields.</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-2 space-y-3">
+                
+                <!-- Send Email Button -->
+                <button onclick="sendEmail()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2 group">
+                    <i class="ph ph-paper-plane-right text-xl"></i>
+                    <span>Open Email App</span>
+                </button>
+
+                <!-- Copy Clipboard Button -->
+                <button id="copyBtn" onclick="copyToClipboard()" class="w-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <i id="copyIcon" class="ph ph-copy text-xl"></i>
+                    <span id="copyText">Copy Info (if email doesn't open)</span>
+                </button>
+            </div>
+
+            <!-- Success/Info Footer -->
+            <div class="text-center pt-4 border-t border-slate-100">
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    <i class="ph ph-info inline-block mr-1 align-middle text-teal-600"></i>
+                    We will reply to your email to confirm the appointment.
+                </p>
+                <p class="text-xs text-slate-400 mt-2">
+                    Recipient: vmarkov@universitysettlement.org
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification (Hidden by default) -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-2 z-50">
+        <i class="ph ph-check-circle text-green-400 text-xl"></i>
+        <span>Copied to clipboard!</span>
+    </div>
+
+    <script>
+        const RECIPIENT_EMAIL = "vmarkov@universitysettlement.org";
+
+        function getFormData() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const studentClass = document.getElementById('studentClass').value;
+            const topic = document.getElementById('topic').value;
+            const availability = document.getElementById('availability').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+
+            if (!fullName || !studentClass || !topic || !availability) {
+                return null; // Validation failed
+            }
+
+            return { fullName, studentClass, topic, availability, notes };
+        }
+
+        function formatMessageBody(data) {
+            return `COUNSELING REQUEST (Adult Literacy Program)
+-----------------------------
+Student Name: ${data.fullName}
+Class: ${data.studentClass}
+Topic: ${data.topic}
+
+Availability (Next 2 Weeks):
+${data.availability}
+
+Additional Notes:
+${data.notes ? data.notes : "None provided"}
+-----------------------------`;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            errorText.innerText = message;
+            errorDiv.classList.remove('hidden');
+            
+            // Shake animation effect
+            errorDiv.classList.add('animate-pulse');
+            setTimeout(() => errorDiv.classList.remove('animate-pulse'), 500);
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        function sendEmail() {
+            hideError();
+            const data = getFormData();
+            
+            if (!data) {
+                showError("Please fill in Name, Class, Topic, and Availability.");
+                return;
+            }
+
+            const subject = `Counseling Request: ${data.fullName}`;
+            const body = formatMessageBody(data);
+            
+            // Encode components for URL
+            const mailtoLink = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open mail client
+            window.location.href = mailtoLink;
+        }
+
+        function copyToClipboard() {
+            hideError();
+            const data = getFormData();
+
+            if (!data) {
+                showError("Please fill in the form before copying.");
+                return;
+            }
+
+            const subject = `Counseling Request: ${data.fullName}`;
+            const body = formatMessageBody(data);
+            
+            // Create full text block including recipient and subject for manual sending
+            const fullTextToCopy = `To: ${RECIPIENT_EMAIL}
+Subject: ${subject}
+
+${body}`;
+
+            // Robust copy method
+            const textArea = document.createElement("textarea");
+            textArea.value = fullTextToCopy;
+            
+            // Ensure textarea is not visible but part of DOM
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast();
+                    updateCopyButtonState();
+                } else {
+                    showError("Unable to copy to clipboard automatically.");
+                }
+            } catch (err) {
+                showError("Browser denied copy permission.");
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Temporary visual change for the copy button
+        function updateCopyButtonState() {
+            const btn = document.getElementById('copyBtn');
+            const icon = document.getElementById('copyIcon');
+            const text = document.getElementById('copyText');
+            
+            btn.classList.remove('bg-white', 'text-slate-700');
+            btn.classList.add('bg-green-50', 'text-green-700', 'border-green-200');
+            icon.classList.remove('ph-copy');
+            icon.classList.add('ph-check');
+            text.innerText = "Info Copied!";
+
+            setTimeout(() => {
+                btn.classList.add('bg-white', 'text-slate-700');
+                btn.classList.remove('bg-green-50', 'text-green-700', 'border-green-200');
+                icon.classList.add('ph-copy');
+                icon.classList.remove('ph-check');
+                text.innerText = "Copy Info (if email doesn't open)";
+            }, 3000);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
