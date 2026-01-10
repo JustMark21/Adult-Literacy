@@ -485,7 +485,7 @@ I am writing to request a counseling session.
 
 My name is ${data.fullName} and I am currently in class ${data.studentClass}. I would like to meet with a counselor to discuss "${data.topic}."
 
-Regarding the next two weeks, my availability is:
+My availability over the next two weeks is as follows:
 ${data.availability}
 ${additionalDetails}
 
@@ -528,12 +528,8 @@ ${data.fullName}`;
                 return;
             }
 
-            const subject = `Counseling Request: ${data.fullName}`;
-            const body = formatMessageBody(data);
-            const fullTextToCopy = `To: ${RECIPIENT_EMAIL}
-Subject: ${subject}
-
-${body}`;
+            // MODIFIED: Only copy the body content, not "To:" or "Subject:"
+            const fullTextToCopy = formatMessageBody(data);
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(fullTextToCopy)
