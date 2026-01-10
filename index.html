@@ -499,21 +499,23 @@
         }
 
         function formatMessageBody(data) {
-            // We keep the email body labels in English for the Admin's convenience
-            return `COUNSELING REQUEST (Adult Literacy Program)
------------------------------
-Student Name: ${data.fullName}
-Class: ${data.studentClass}
-Topic: ${data.topic}
-
-Availability (Next 2 Weeks):
-${data.availability}
-
-Additional Notes:
-${data.notes ? data.notes : "None provided"}
------------------------------`;
+            const additionalNotes = data.notes ? `I also wanted to add: ${data.notes}` : "";
+        
+            return `Hello,
+        
+            I am writing to request a counseling session. 
+            
+            My name is ${data.fullName} and I am currently in the ${data.studentClass} class. I would like to speak with a counselor regarding ${data.topic}.
+            
+            Regarding my availability for the next two weeks, I am free during the following times:
+            ${data.availability}
+            
+            ${additionalNotes}
+            
+            Thank you for your help,
+            ${data.fullName}`;
         }
-
+        
         function showError(messageKey) {
             const errorDiv = document.getElementById('errorMessage');
             const errorText = document.getElementById('errorText');
